@@ -23,6 +23,7 @@ router.post('/create', async(req,res) => {
     }
 });
 
+//get the data
 router.get('/getData', async(req,res) => {
     try {
         await controller.getData(req,res);
@@ -30,15 +31,26 @@ router.get('/getData', async(req,res) => {
         console.log(error);
         res.status(500).json({error: 'Server error'});
     }
-})
+});
 
-router.put('/editData/:id', async(req,res) => {
+//edit the data
+router.put('/editData/:sensor_name', async(req,res) => {
     try {
         await controller.editData(req,res);
     } catch (error) {
         console.log(error);
         res.status(500).json({error: 'Server error'});
     }
-})
+});
+
+//delete data
+router.delete('/deleteData/:sensor_name', async(req,res) => {
+    try {
+        await controller.deleteData(req,res);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: 'Server error'});
+    }
+});
 
 module.exports= router;

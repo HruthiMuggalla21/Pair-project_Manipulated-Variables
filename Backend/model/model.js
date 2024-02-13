@@ -18,10 +18,18 @@ const model = {
         return result.rows;
     },
 
-    editData: async(id, editDbInfo) => {
+    editData: async(SensorName, editDbInfo) => {
         const {operator_low, operator_high} = editDbInfo;
-        const query = 'UPDATE sensor_data SET operator_low = $1, operator_high = $2 WHERE id = $3 RETURNING *';
-        const values=[operator_low, operator_high, sensor_name];
+
+        const query = 'UPDATE sensor_data SET operator_low = $1, operator_high = $2 WHERE sensor_name = $3 RETURNING *';
+        const values=[operator_low, operator_high, SensorName];
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    },
+
+    deleteData: async(SensorName) =>{
+        const query = 'DELETE FROM sensor_data WHERE sensor_name = $1 RETURNING *';
+        const values=[SensorName];
         const result = await pool.query(query, values);
         return result.rows[0];
     }
