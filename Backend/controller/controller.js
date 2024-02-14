@@ -50,7 +50,8 @@ const controller = {
         try {
             const deleteData = await model.deleteData(SensorName);
             if(deleteData){
-                req.json({message: 'Data deleted successfully'});
+                res.json(deleteData);
+                console.log('Data deleted successfully');
             }
             else {
                 res.status(404).json({error: 'data record not found'});
