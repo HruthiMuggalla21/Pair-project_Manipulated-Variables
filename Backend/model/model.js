@@ -18,21 +18,28 @@ const model = {
         return result.rows;
     },
 
-    editData: async(SensorName, editDbInfo) => {
-        const {operator_low, operator_high} = editDbInfo;
+    // editData: async(SensorName, editDbInfo) => {
+    //     const {operator_low, operator_high} = editDbInfo;
 
-        const query = 'UPDATE sensor_data SET operator_low = $1, operator_high = $2 WHERE sensor_name = $3 RETURNING *';
-        const values=[operator_low, operator_high, SensorName];
-        const result = await pool.query(query, values);
-        return result.rows[0];
-    },
+    //     const query = 'UPDATE sensor_data SET operator_low = $1, operator_high = $2 WHERE sensor_name = $3 RETURNING *';
+    //     const values=[operator_low, operator_high, SensorName];
+    //     const result = await pool.query(query, values);
+    //     return result.rows[0];
+    // },
 
-    deleteData: async(SensorName) =>{
-        const query = 'DELETE FROM sensor_data WHERE sensor_name = $1 RETURNING *';
-        const values=[SensorName];
-        const result = await pool.query(query, values);
-        return result.rows[0];
+    editData: async(editDataArray) => {
+        const results=[];
+        for(const editData of editDataArray) {
+            const {sensor_name, operator_low, operator_high} = editData;
+            const query = 'UPDATE sensor_data SET operator_low = $1, operator_high = $2 WHERE sensor_name = $3 RETURNING *';
+            const values = [operator_low, operator_high, sensor_name];
+            const result = await pool.query(query,values);
+            results.push(result.rows[0]);
+        }
+        return results;
     }
+
+    
 }
 
 module.exports = model

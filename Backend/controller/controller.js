@@ -28,38 +28,17 @@ const controller = {
         }
     },
     editData: async(req,res) => {
-        const SensorName = req.params.sensor_name;
-         console.log(SensorName)
-        const editDbInfo = req.body;
+        
         try {
-           const editedData = await model.editData(SensorName, editDbInfo);
-           if(editedData){
-            res.json(editedData);
-            console.log('Data Updated successfully!')
-           } 
-           else {
-            res.status(404).json({error: ' data not found'});
-           }
+           const editDataArray = req.body;
+           const editedRows = await editData(editDataArray);
+           res.status(200).json({success: true, editedRows});
         } catch (error) {
             res.status(500).json({error: 'Server error'});
         }
     },
 
-    deleteData: async(req,res) => {
-        const SensorName = req.params.sensor_name;
-        try {
-            const deleteData = await model.deleteData(SensorName);
-            if(deleteData){
-                res.json(deleteData);
-                console.log('Data deleted successfully');
-            }
-            else {
-                res.status(404).json({error: 'data record not found'});
-            }
-        } catch (error) {
-            res.status(500).json({error: 'Server error'});
-        }
-    }
+    
 
 }
 

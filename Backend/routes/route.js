@@ -34,7 +34,7 @@ router.get('/getData', async(req,res) => {
 });
 
 //edit the data
-router.put('/editData/:sensor_name', async(req,res) => {
+router.put('/editData', async(req,res) => {
     try {
         await controller.editData(req,res);
     } catch (error) {
@@ -43,14 +43,6 @@ router.put('/editData/:sensor_name', async(req,res) => {
     }
 });
 
-//delete data
-router.delete('/deleteData/:sensor_name', async(req,res) => {
-    try {
-        await controller.deleteData(req,res);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({error: 'Server error'});
-    }
-});
+
 
 module.exports= router;

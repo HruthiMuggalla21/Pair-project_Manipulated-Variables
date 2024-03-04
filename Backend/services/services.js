@@ -22,13 +22,7 @@ class Service{
             return error;
         }
     };
-    async deleteData() {
-        try {
-            return await model_object.deleteData();
-        } catch (error) {
-            return error;
-        }
-    }
+    
 }
 
 module.exports = new Service();
